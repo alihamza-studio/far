@@ -4,11 +4,13 @@ import { useState } from "react";
 import { format } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
+import ChatModal from "@/components/ChatModal";
 export default function PermitView({ permit, requiresPassword }: { permit: any, requiresPassword: boolean }) {
   const [isUnlocked, setIsUnlocked] = useState(!requiresPassword);
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [isVerifying, setIsVerifying] = useState(false);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   const handleUnlock = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -247,9 +249,16 @@ export default function PermitView({ permit, requiresPassword }: { permit: any, 
       </footer>
 
       {/* Floating Chat Icon */}
-      <a href="#" className="fixed bottom-6 left-6 z-50">
+      <button
+        onClick={() => setIsChatOpen((prev) => !prev)}
+        className="fixed bottom-6 left-6 z-50 bg-transparent border-none cursor-pointer p-0"
+        aria-label="فتح المحادثة"
+      >
         <Image src="/wa.png" alt="Chat" width={90} height={90} className="hover:scale-105 transition-transform" />
-      </a>
+      </button>
+
+      {/* Chat Modal */}
+      <ChatModal isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
     </div>
   );
 }
