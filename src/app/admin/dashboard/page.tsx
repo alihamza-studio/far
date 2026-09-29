@@ -3,9 +3,10 @@ import { getServerAuthSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { Plus, Eye, Trash2 } from "lucide-react";
+import { Plus, Eye, Pencil } from "lucide-react";
 import { format } from "date-fns";
 import DownloadPdfAction from "@/components/DownloadPdfAction";
+import DeletePermitButton from "@/components/DeletePermitButton";
 
 export default async function DashboardPage() {
   const session = await getServerAuthSession();
@@ -70,13 +71,14 @@ export default async function DashboardPage() {
                       )}
                     </td>
                     <td className="px-6 py-4 text-right flex justify-end gap-3">
-                      <Link href={`/notice-verification/${permit.id}`} target="_blank" className="text-gray-500 hover:text-blue-600">
+                      <Link href={`/notice-verification/${permit.id}`} target="_blank" className="text-gray-500 hover:text-blue-600" title="View Permit">
                         <Eye size={18} />
                       </Link>
+                      <Link href={`/admin/permit/${permit.id}/edit`} className="text-gray-500 hover:text-blue-600" title="Edit Permit">
+                        <Pencil size={18} />
+                      </Link>
                       <DownloadPdfAction permit={permit} />
-                      <button className="text-gray-500 hover:text-red-600">
-                        <Trash2 size={18} />
-                      </button>
+                      <DeletePermitButton permitId={permit.id} />
                     </td>
                   </tr>
                 ))
