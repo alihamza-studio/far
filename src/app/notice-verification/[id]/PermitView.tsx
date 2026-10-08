@@ -251,7 +251,7 @@ export default function PermitView({ permit, requiresPassword }: { permit: any, 
       {/* Floating Chat Icon */}
       <button
         onClick={() => setIsChatOpen((prev) => !prev)}
-        className="fixed bottom-6 left-6 z-50 bg-transparent border-none cursor-pointer p-0"
+        className="fixed md:bottom-10 bottom-6 left-2 md:left-6 z-50 bg-transparent border-none cursor-pointer p-0"
         aria-label="فتح المحادثة"
       >
         <Image src="/wa.png" alt="Chat" width={90} height={90} className="hover:scale-105 transition-transform" />
